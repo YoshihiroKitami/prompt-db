@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}{{ prompt.title }} | Prompt DB{% endblock %}
+
+{% block content %}
+<article class="card">
+    <h2>{{ prompt.title }}</h2>
+    <p class="meta">
+        用途: {{ prompt.use_case }}
+        {% if prompt.category %} / カテゴリ: {{ prompt.category.name }}{% endif %}
+        {% if prompt.tags %} / タグ: {{ prompt.tags }}{% endif %}
+    </p>
+    <h3>プロンプト本文</h3>
+    <pre style="white-space: pre-wrap;">{{ prompt.prompt_text }}</pre>
+
+    {% if prompt.notes %}
+    <h3>メモ</h3>
+    <p>{{ prompt.notes }}</p>
+    {% endif %}
+
+    <p class="meta">更新日時: {{ prompt.updated_at }}</p>
+</article>
+{% endblock %}
