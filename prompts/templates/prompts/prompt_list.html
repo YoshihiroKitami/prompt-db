@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Prompt一覧 | Prompt DB{% endblock %}
+
+{% block content %}
+<form method="get">
+    <input type="text" name="q" value="{{ query }}" placeholder="タイトル・用途・タグ・本文で検索">
+    <button type="submit">検索</button>
+</form>
+
+{% for prompt in prompts %}
+<div class="card">
+    <h2><a href="{% url 'prompt-detail' prompt.pk %}">{{ prompt.title }}</a></h2>
+    <p>{{ prompt.prompt_text|truncatechars:180 }}</p>
+    <p class="meta">
+        用途: {{ prompt.use_case }}
+        {% if prompt.category %} / カテゴリ: {{ prompt.category.name }}{% endif %}
+        {% if prompt.tags %} / タグ: {{ prompt.tags }}{% endif %}
+    </p>
+</div>
+{% empty %}
+<p>プロンプトがまだありません。まずは作成してください。</p>
+{% endfor %}
+{% endblock %}
